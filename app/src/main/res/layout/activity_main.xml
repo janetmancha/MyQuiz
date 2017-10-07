@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.janet.myquiz.MainActivity">
+
+    <TextView
+        android:id="@+id/textViewPresentacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido a mi juego de preguntas:Contesta a todas las preguntas y al final tendras el resultado.Comienza el juego pulsando el boton de inicio."
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:textColor="#3237d9"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+  <Button
+        android:id="@+id/buttonInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Inicio"
+        android:layout_marginTop="100dp"
+        android:layout_below="@id/textViewPresentacion"/>
+
+</RelativeLayout>
