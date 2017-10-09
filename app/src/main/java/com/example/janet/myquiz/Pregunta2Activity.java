@@ -6,16 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by janet on 5/10/17.
+ * Created by janet on 7/10/17.
  */
 
-public class PreguntaActivity extends AppCompatActivity {
+public class Pregunta2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,17 +25,17 @@ public class PreguntaActivity extends AppCompatActivity {
         final RadioButton r2 = (RadioButton) findViewById(R.id.radioButton2);
         final RadioButton r3 = (RadioButton) findViewById(R.id.radioButton3);
 
-        textView.setText("Pregunta 1");
-        r1.setText("Respuesta 1A");
-        r2.setText("Respuesta 1B");
-        r3.setText("Respuesta 1C");
+        textView.setText("Pregunta 2");
+        r1.setText("Respuesta 2A");
+        r2.setText("Respuesta 2B");
+        r3.setText("Respuesta 2C");
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Integer countNumber = 0;
+                Intent pregunta3Activity = new Intent(getApplicationContext(), Pregunta3Activity.class);
+                Integer countNumber = getIntent().getIntExtra("countNumber",0);
                 String message;
 
-                Intent pregunta2Activity = new Intent(getApplicationContext(), Pregunta2Activity.class);
                 if (r1.isChecked()) {
                     countNumber = countNumber + 1;
                 }
@@ -47,11 +46,10 @@ public class PreguntaActivity extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("PreguntaActivity","countNumber is " + countNumber);
-                pregunta2Activity.putExtra("countNumber",countNumber);
-                startActivity(pregunta2Activity);
+                Log.d("Pregunta2Activity","countNumber is " + countNumber);
+                pregunta3Activity.putExtra("countNumber",countNumber);
+                startActivity(pregunta3Activity);
             }
         });
     }
 }
-
