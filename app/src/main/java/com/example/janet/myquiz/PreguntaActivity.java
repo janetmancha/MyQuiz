@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,40 +17,74 @@ import android.widget.Toast;
  */
 
 public class PreguntaActivity extends AppCompatActivity {
+
+    String[][] preguntas = new String[3][5];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pregunta);
         final TextView textView = (TextView) findViewById(R.id.textView);
         final Button button = (Button) findViewById(R.id.button);
+        final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.respuestas);
         final RadioButton r1 = (RadioButton) findViewById(R.id.radioButton1);
         final RadioButton r2 = (RadioButton) findViewById(R.id.radioButton2);
         final RadioButton r3 = (RadioButton) findViewById(R.id.radioButton3);
 
-        textView.setText("Pregunta 1");
-        r1.setText("Respuesta 1A");
-        r2.setText("Respuesta 1B");
-        r3.setText("Respuesta 1C");
+        preguntas[0][0] = "De que color es la leche?";
+        preguntas[0][1] = "Roja";
+        preguntas[0][2] = "Verde";
+        preguntas[0][3] = "Blanca";
+        preguntas[0][4] = "Blanca";
+
+        preguntas[1][0] = "De que color es el carbon?";
+        preguntas[1][1] = "Negro";
+        preguntas[1][2] = "Verde";
+        preguntas[1][3] = "Azul";
+        preguntas[1][4] = "Negro";
+
+        preguntas[2][0] = "De que color es el sol?";
+        preguntas[2][1] = "Negro";
+        preguntas[2][2] = "Amarillo";
+        preguntas[2][3] = "Rosa";
+        preguntas[2][4] = "Amarillo";
+
+        final Integer numeroPregunta = getIntent().getIntExtra("numeroPregunta",0);
+
+        textView.setText(preguntas[numeroPregunta][0]);
+        r1.setText(preguntas[numeroPregunta][1]);
+        r2.setText(preguntas[numeroPregunta][2]);
+        r3.setText(preguntas[numeroPregunta][3]);
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Integer countNumber = 0;
-                String message;
+                Integer hitNumber = getIntent().getIntExtra("hitNumber",0);
 
-                Intent pregunta2Activity = new Intent(getApplicationContext(), Pregunta2Activity.class);
-                if (r1.isChecked()) {
-                    countNumber = countNumber + 1;
-                }
+                int radioButtonID = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = radioGroup.findViewById(radioButtonID);
 
-                if (!r1.isChecked() && !r2.isChecked() && !r3.isChecked()){
-                    message = "Debes seleccionar alguna respuesta";
+                if (radioButton == null){
+                    String message = "Debes seleccionar alguna respuesta";
                     Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Log.d("PreguntaActivity","countNumber is " + countNumber);
-                pregunta2Activity.putExtra("countNumber",countNumber);
-                startActivity(pregunta2Activity);
+                String respuesta = radioButton.getText().toString();
+
+                Intent nextActivity;
+                if (numeroPregunta < 2 ) {
+                    nextActivity = new Intent(getApplicationContext(), PreguntaActivity.class);
+                } else {
+                    nextActivity = new Intent(getApplicationContext(), ResultActivity.class);
+                }
+
+                nextActivity.putExtra("numeroPregunta",numeroPregunta + 1);
+                if (respuesta.equalsIgnoreCase(preguntas[numeroPregunta][4])){
+                    nextActivity.putExtra("hitNumber",hitNumber + 1);
+                } else {
+                    nextActivity.putExtra("hitNumber",hitNumber);
+                }
+                startActivity(nextActivity);
             }
         });
     }

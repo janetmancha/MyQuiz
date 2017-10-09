@@ -21,16 +21,16 @@ public class ResultActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText("Resultado");
 
-        Integer countNumber = getIntent().getIntExtra("countNumber",0);
-        Log.d("ResultActivity","countNumber is " + countNumber);
+        Integer hitNumber = getIntent().getIntExtra("hitNumber",0);
+        Log.d("ResultActivity","hitNumber is " + hitNumber);
 
-        if (countNumber == 3) {
+        if (hitNumber == 3) {
             textView.setText("Muy Bien");
-        } else if (countNumber == 0){
+        } else if (hitNumber == 0){
             textView.setText("Muy Mal");
-        } else if (countNumber == 1){
+        } else if (hitNumber == 1){
             textView.setText("Mal");
-        }else if (countNumber == 2){
+        }else if (hitNumber == 2){
             textView.setText("Bien");
         }
     }

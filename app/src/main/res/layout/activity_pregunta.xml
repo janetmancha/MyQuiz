@@ -13,35 +13,38 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView"
-        android:text=""
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"/>
 
-    <RadioButton
-        android:id="@+id/radioButton2"
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/respuestas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/radioButton1"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"/>
-
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/radioButton2"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"/>
+        android:layout_below="@id/textView">
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"/>
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"/>
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"/>
+    </RadioGroup>
 
     <Button
         android:id="@+id/button"
@@ -50,6 +53,6 @@
         android:layout_centerHorizontal="true"
         android:text="Siguiente"
         android:layout_marginTop="100dp"
-        android:layout_below="@id/radioButton3"/>
+        android:layout_below="@id/respuestas"/>
 
 </RelativeLayout>
