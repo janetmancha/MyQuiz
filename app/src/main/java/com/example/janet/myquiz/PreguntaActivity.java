@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class PreguntaActivity extends AppCompatActivity {
 
-    String[][] preguntas = new String[3][5];
+    Pregunta[] preguntas = new Pregunta[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,30 +31,18 @@ public class PreguntaActivity extends AppCompatActivity {
         final RadioButton r2 = (RadioButton) findViewById(R.id.radioButton2);
         final RadioButton r3 = (RadioButton) findViewById(R.id.radioButton3);
 
-        preguntas[0][0] = "De que color es la leche?";
-        preguntas[0][1] = "Roja";
-        preguntas[0][2] = "Verde";
-        preguntas[0][3] = "Blanca";
-        preguntas[0][4] = "Blanca";
-
-        preguntas[1][0] = "De que color es el carbon?";
-        preguntas[1][1] = "Negro";
-        preguntas[1][2] = "Verde";
-        preguntas[1][3] = "Azul";
-        preguntas[1][4] = "Negro";
-
-        preguntas[2][0] = "De que color es el sol?";
-        preguntas[2][1] = "Negro";
-        preguntas[2][2] = "Amarillo";
-        preguntas[2][3] = "Rosa";
-        preguntas[2][4] = "Amarillo";
+        preguntas[0] = new Pregunta("De que color es la leche?", "Roja", "Verde", "Blanca", 2);
+        preguntas[1] = new Pregunta("De que color es el carbon?", "Negro", "Verde", "Azul", 0);
+        preguntas[2] = new Pregunta("De que color es el sol?", "Negro", "Amarillo", "Rosa", 1);
 
         final Integer numeroPregunta = getIntent().getIntExtra("numeroPregunta",0);
 
-        textView.setText(preguntas[numeroPregunta][0]);
-        r1.setText(preguntas[numeroPregunta][1]);
-        r2.setText(preguntas[numeroPregunta][2]);
-        r3.setText(preguntas[numeroPregunta][3]);
+        final Pregunta preguntaActual = preguntas[numeroPregunta];
+
+        textView.setText(preguntaActual.pregunta);
+        r1.setText(preguntaActual.respuestas[0]);
+        r2.setText(preguntaActual.respuestas[1]);
+        r3.setText(preguntaActual.respuestas[2]);
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -79,7 +67,7 @@ public class PreguntaActivity extends AppCompatActivity {
                 }
 
                 nextActivity.putExtra("numeroPregunta",numeroPregunta + 1);
-                if (respuesta.equalsIgnoreCase(preguntas[numeroPregunta][4])){
+                if (preguntaActual.esCorrecta(respuesta)) {
                     nextActivity.putExtra("hitNumber",hitNumber + 1);
                 } else {
                     nextActivity.putExtra("hitNumber",hitNumber);
