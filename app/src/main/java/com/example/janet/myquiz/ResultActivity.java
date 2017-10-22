@@ -21,17 +21,10 @@ public class ResultActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText("Resultado");
 
-        Integer hitNumber = getIntent().getIntExtra("hitNumber",0);
-        Log.d("ResultActivity","hitNumber is " + hitNumber);
-
-        if (hitNumber == 3) {
-            textView.setText("Muy Bien");
-        } else if (hitNumber == 0){
-            textView.setText("Muy Mal");
-        } else if (hitNumber == 1){
-            textView.setText("Mal");
-        }else if (hitNumber == 2){
-            textView.setText("Bien");
+        if (Preguntas.puntuacion()<5) {
+            textView.setText("Suspenso");
+        } else {
+            textView.setText("Aprobado");
         }
     }
 }

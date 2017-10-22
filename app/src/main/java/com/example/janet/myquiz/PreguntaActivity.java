@@ -3,10 +3,8 @@ package com.example.janet.myquiz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 
 public class PreguntaActivity extends AppCompatActivity {
 
-    Pregunta[] preguntas = new Pregunta[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +27,7 @@ public class PreguntaActivity extends AppCompatActivity {
         final RadioButton r1 = (RadioButton) findViewById(R.id.radioButton1);
         final RadioButton r2 = (RadioButton) findViewById(R.id.radioButton2);
         final RadioButton r3 = (RadioButton) findViewById(R.id.radioButton3);
-
-        preguntas[0] = new Pregunta("De que color es la leche?", "Roja", "Verde", "Blanca", 2);
-        preguntas[1] = new Pregunta("De que color es el carbon?", "Negro", "Verde", "Azul", 0);
-        preguntas[2] = new Pregunta("De que color es el sol?", "Negro", "Amarillo", "Rosa", 1);
-
-        final Integer numeroPregunta = getIntent().getIntExtra("numeroPregunta",0);
-
-        final Pregunta preguntaActual = preguntas[numeroPregunta];
+        final Pregunta preguntaActual = Preguntas.damePregunta();
 
         textView.setText(preguntaActual.pregunta);
         r1.setText(preguntaActual.respuestas[0]);
@@ -46,7 +36,6 @@ public class PreguntaActivity extends AppCompatActivity {
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Integer hitNumber = getIntent().getIntExtra("hitNumber",0);
 
                 int radioButtonID = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = radioGroup.findViewById(radioButtonID);
@@ -60,18 +49,12 @@ public class PreguntaActivity extends AppCompatActivity {
                 String respuesta = radioButton.getText().toString();
 
                 Intent nextActivity;
-                if (numeroPregunta < 2 ) {
+                if (Preguntas.hayMas()) {
                     nextActivity = new Intent(getApplicationContext(), PreguntaActivity.class);
                 } else {
                     nextActivity = new Intent(getApplicationContext(), ResultActivity.class);
                 }
-
-                nextActivity.putExtra("numeroPregunta",numeroPregunta + 1);
-                if (preguntaActual.esCorrecta(respuesta)) {
-                    nextActivity.putExtra("hitNumber",hitNumber + 1);
-                } else {
-                    nextActivity.putExtra("hitNumber",hitNumber);
-                }
+                Preguntas.hasAcertado(preguntaActual.esCorrecta(respuesta));
                 startActivity(nextActivity);
             }
         });

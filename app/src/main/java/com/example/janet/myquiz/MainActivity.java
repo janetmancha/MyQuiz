@@ -17,7 +17,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final TextView textView = (TextView) findViewById(R.id.textViewPresentacion);
 
-        textView.setText("Bienvenido a mi juego de preguntas:Contesta a todas las preguntas y al final tendras el resultado.Comienza el juego pulsando el boton de inicio.");
+        textView.setText("Bienvenido a mi juego de preguntas:Contesta a todas las preguntas y al final tendras el hasAcertado.Comienza el juego pulsando el boton de inicio.");
+
+        Preguntas.init();
 
         findViewById(R.id.buttonInicio).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
