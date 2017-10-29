@@ -1,0 +1,22 @@
+[
+  {
+    "question": "De que color es la leche?",
+    "answers": ["Roja", "Verde", "Blanca"],
+    "correct": "Blanca"
+  },
+  {
+    "question": "De que color es el carbon?",
+    "answers": ["Negro", "Verde", "Azul"],
+    "correct": "Negro"
+  },
+  {
+    "question": "De que color es el sol?",
+    "answers": ["Negro", "Amarillo", "Rosa"],
+    "correct": "Amarillo"
+  },
+  {
+    "question": "De que color es el cielo?",
+    "answers": ["Negro", "Amarillo", "Azul"],
+    "correct": "Azul"
+  }
+]

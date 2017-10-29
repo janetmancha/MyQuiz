@@ -1,5 +1,17 @@
 package com.example.janet.myquiz;
 
+import android.content.Context;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,23 +21,38 @@ import java.util.List;
 
 public class Preguntas {
 
-    static private Pregunta[] preguntas = new Pregunta[4];
+    static private JSONArray preguntas;
     static private int contador = 0;
     static private int aciertos = 0;
 
-    static void init () {
-        preguntas[0] = new Pregunta("De que color es la leche?", "Roja", "Verde", "Blanca", 2);
-        preguntas[1] = new Pregunta("De que color es el carbon?", "Negro", "Verde", "Azul", 0);
-        preguntas[2] = new Pregunta("De que color es el sol?", "Negro", "Amarillo", "Rosa", 1);
-        preguntas[3] = new Pregunta("De que color es el cielo?", "Negro", "Amarillo", "Azul", 2);
+    static void init (Context context) {
+        InputStream is = context.getResources().openRawResource(R.raw.preguntas);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+            is.close();
+            preguntas = new JSONArray(writer.toString());
+        } catch (Exception e) {
+            Log.d("Preguntas init", e.toString());
+        }
     }
     
-    static Pregunta damePregunta(){
-        return preguntas[contador++];
+    static JSONObject damePregunta(){
+        try {
+            return preguntas.getJSONObject(contador++);
+        } catch (Exception e) {
+            Log.d("Preguntas damePregunta", e.toString());
+        }
+        return null;
     }
 
     static boolean hayMas() {
-        if (contador < preguntas.length){
+        if (contador < preguntas.length()){
             return true;
         }
         else{
@@ -33,13 +60,17 @@ public class Preguntas {
         }
     }
 
-    static void hasAcertado(boolean r) {
-        if (r==true){
-            aciertos++;
+    static void evaluar(JSONObject pregunta, String respuesta) {
+        try {
+            if (pregunta.getString("correct").equalsIgnoreCase(respuesta)) {
+                aciertos++;
+            }
+        } catch (Exception e) {
+            Log.d("Preguntas evaluar", e.toString());
         }
     }
 
     static int puntuacion() {
-        return aciertos*10/preguntas.length;
+        return aciertos*10/preguntas.length();
     }
 }

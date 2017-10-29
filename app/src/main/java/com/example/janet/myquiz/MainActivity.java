@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView.setText("Bienvenido a mi juego de preguntas:Contesta a todas las preguntas y al final tendras el hasAcertado.Comienza el juego pulsando el boton de inicio.");
 
-        Preguntas.init();
+        Preguntas.init(this);
 
         findViewById(R.id.buttonInicio).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
